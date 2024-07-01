@@ -11,7 +11,7 @@ const loadingListElement = document.getElementById("loadingList");
 const loadingCommentElement = document.getElementById("loadingComment");
 const commentDivElement = document.getElementById("commentDiv");
 
-let comments = [];
+export let comments = [];
 
 //Чтобы при загрузке страницы не было надписи "Комментарий добавляется..."
 loadingCommentElement.style.display = "none";
@@ -121,16 +121,14 @@ buttonElement.addEventListener("click", () => {
     .catch((error) => {
       if (error.message === "Валидация") {
         alert("Имя или текст короче 3 символов");
-        fetchAndRenderComments();
       } else if (error.message === "Сервер упал") {
         alert("Сервер сломался, попробуй позже");
-        fetchAndRenderComments();
       } else {
         commentDivElement.style.display = "flex";
         loadingCommentElement.style.display = "none";
         alert("У пользователя пропал интернет");
-        fetchAndRenderComments();
       }
+      fetchAndRenderComments();
     });
 });
 
