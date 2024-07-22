@@ -203,11 +203,16 @@ body {
   border: none;
   border-radius: 18px;
   cursor: pointer;
-  text-decoration: 0.5px underline; 
+  text-decoration: 0.5px underline;
 }
 
 .authorization-row,
 .registration-row {
   display: flex;
   flex-direction: column;
+}
+
+.span-click {
+  text-decoration: underline;
+  cursor: pointer;
 }

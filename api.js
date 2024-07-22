@@ -20,7 +20,11 @@ export function getComments() {
       Authorization: `Bearer ${token}`,
     },
   }).then((response) => {
-    return response.json();
+    if (response.status === 200) {
+      return response.json();
+    } else {
+      alert("У пользователя упал интернет")
+    }
   });
 }
 

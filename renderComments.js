@@ -45,7 +45,7 @@ const initReplyComments = () => {
 };
 
 export const renderComments = ({ comments }) => {
-  const authButton = `<p>Для того чтобы оставить комм, <span class="span-click">авторизуйтесь</span></p>`;
+  const authButton = `<p>Для того чтобы оставить комментарий, <span class="span-click">авторизуйтесь</span></p>`;
   const formHtml = `<div id="commentDiv" class="add-form">
   <input
     id="name-input"

@@ -20,9 +20,7 @@ export const loginPage = () => {
         <div class="authorization-row">
           <button id="button" class="authorization-button">Войти</button>
         </div>
-        <div class="authorization-row">
-          <button id="button" class="registration-button">Зарегистрироваться</button>
-        </div>
+
       </div>`;
 
   const conteinerText = document.getElementById("app");
@@ -35,20 +33,22 @@ export const loginPage = () => {
   );
 
   authButtonElement.addEventListener("click", () => {
+    const loginValue = loginInputElement.value;
+    const passwordValue = passwordInputElement.value;
+
+    if (loginValue.includes(" ") || passwordValue.includes(" ")) {
+      alert("Логин не должен содержать пробелы");
+      return;
+    }
+
     login({
-      login: loginInputElement.value,
-      password: passwordInputElement.value,
+      login: loginValue,
+      password: passwordValue,
     }).then((responseData) => {
       console.log(responseData);
       setToken(responseData.user.token);
       setName(responseData.user.name);
-      // console.log(token);
       fetchAndRenderComments();
     });
-  });
-
-  const registrText = document.querySelector(".registration-button");
-  registrText.addEventListener("click", () => {
-    registrPage();
   });
 };
