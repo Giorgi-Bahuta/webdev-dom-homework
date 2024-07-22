@@ -23,7 +23,7 @@ export function getComments() {
     if (response.status === 200) {
       return response.json();
     } else {
-      alert("У пользователя упал интернет")
+      alert("У пользователя упал интернет");
     }
   });
 }
@@ -52,9 +52,10 @@ export function login({ login, password }) {
       password,
     }),
   }).then((response) => {
-    if (response.status === 401) {
+    if (response.status === 400) {
       alert("неверный логин или пароль");
+    } else {
+      return response.json();
     }
-    return response.json();
   });
 }
