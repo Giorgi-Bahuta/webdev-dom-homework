@@ -1,6 +1,5 @@
 import { login, setName, setToken } from "./api.js";
 import { fetchAndRenderComments } from "./main.js";
-import { registrPage } from "./registrPage.js";
 
 export const loginPage = () => {
   const loginForm = `<div id="commentDiv" class="add-form">
@@ -35,6 +34,21 @@ export const loginPage = () => {
   authButtonElement.addEventListener("click", () => {
     const loginValue = loginInputElement.value;
     const passwordValue = passwordInputElement.value;
+
+    loginInputElement.classList.remove("error");
+    passwordInputElement.classList.remove("error");
+
+    if (loginInputElement.value === "" && passwordInputElement.value === "") {
+      loginInputElement.classList.add("error");
+      passwordInputElement.classList.add("error");
+      return;
+    } else if (loginInputElement.value === "") {
+      loginInputElement.classList.add("error");
+      return;
+    } else if (passwordInputElement.value === "") {
+      passwordInputElement.classList.add("error");
+      return;
+    }
 
     if (loginValue.includes(" ") || passwordValue.includes(" ")) {
       alert("Логин не должен содержать пробелы");

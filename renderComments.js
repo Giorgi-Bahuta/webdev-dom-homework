@@ -3,46 +3,7 @@ import { correceDateApi } from "./helpers.js";
 import { loginPage } from "./loginPage.js";
 import { comments, fetchAndRenderComments } from "./main.js";
 
-const listElement = document.getElementById("list");
-const commentInputElement = document.getElementById("comment-input");
 
-const initLikeButtons = () => {
-  const likeButtons = document.querySelectorAll(".like-button");
-
-  for (const likeButton of likeButtons) {
-    likeButton.addEventListener("click", (event) => {
-      if (!token) {
-        alert("Сначала авторизуйтесь");
-        return;
-      }
-      const index = likeButton.dataset.index;
-      event.stopPropagation();
-
-      if (comments[index].isLiked === false) {
-        comments[index].isLiked = true;
-        comments[index].likes++;
-      } else {
-        comments[index].isLiked = false;
-        comments[index].likes--;
-      }
-      renderComments({ comments });
-    });
-  }
-};
-
-const initReplyComments = () => {
-  if (!token) {
-    return;
-  }
-  const replyComments = document.querySelectorAll(".comment");
-
-  for (const replyComment of replyComments) {
-    replyComment.addEventListener("click", () => {
-      const text = replyComment.dataset.text;
-      commentInputElement.value = text;
-    });
-  }
-};
 
 export const renderComments = ({ comments }) => {
   const authButton = `<p>Для того чтобы оставить комментарий, <span class="span-click">авторизуйтесь</span></p>`;
@@ -65,7 +26,7 @@ export const renderComments = ({ comments }) => {
   <div class="add-form-row">
     <button id="button" class="add-form-button">Написать</button>
   </div>
-</div>`;
+  </div>`;
   const renderFooter = token ? formHtml : authButton;
   const commentsHtml = comments
     .map((comment, index) => {
@@ -103,6 +64,45 @@ export const renderComments = ({ comments }) => {
 
   const loadingCommentElement = document.getElementById("loadingComment");
   loadingCommentElement.style.display = "none";
+
+  const commentInputElement = document.getElementById("comment-input");
+  const initReplyComments = () => {
+    if (!token) {
+      return;
+    }
+    const replyComments = document.querySelectorAll(".comment");
+  
+    for (const replyComment of replyComments) {
+      replyComment.addEventListener("click", () => {
+        const text = replyComment.dataset.text;
+        commentInputElement.value = text;
+      });
+    }
+  };
+
+  const initLikeButtons = () => {
+    const likeButtons = document.querySelectorAll(".like-button");
+  
+    for (const likeButton of likeButtons) {
+      likeButton.addEventListener("click", (event) => {
+        if (!token) {
+          alert("Сначала авторизуйтесь");
+          return;
+        }
+        const index = likeButton.dataset.index;
+        event.stopPropagation();
+  
+        if (comments[index].isLiked === false) {
+          comments[index].isLiked = true;
+          comments[index].likes++;
+        } else {
+          comments[index].isLiked = false;
+          comments[index].likes--;
+        }
+        renderComments({ comments });
+      });
+    }
+  };
 
   actionAuth();
   actionForm();

@@ -48,7 +48,11 @@ export function login({ login, password }) {
   return fetch(loginURL, {
     method: "POST",
     body: JSON.stringify({
-      login,
+      login: login
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll("QUOTE_BEGIN", "<div class='quote'>")
+        .replaceAll("QUOTE_END", "</div>"),
       password,
     }),
   }).then((response) => {
