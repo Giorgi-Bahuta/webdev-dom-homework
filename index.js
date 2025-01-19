@@ -1,6 +1,5 @@
 import { renderComments } from './modules/renderComments.js'
-import { formatCustomDate } from './modules/date.js'
-import { comments, updateComments } from './modules/comments.js'
+import { updateComments } from './modules/comments.js'
 import { fetchComments, postComment } from './modules/api.js'
 
 fetchComments().then((data) => {
