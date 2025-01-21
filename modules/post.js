@@ -6,7 +6,7 @@ const nameEl = document.querySelector('.add-form-name')
 const commentEl = document.querySelector('.add-form-text')
 const buttonEl = document.querySelector('.add-form-button')
 
-export const addCommetn = () => {
+export const addComment = () => {
     buttonEl.addEventListener('click', function (e) {
         nameEl.classList.remove('error')
         commentEl.classList.remove('error')
