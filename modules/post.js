@@ -23,12 +23,19 @@ export const addComment = () => {
             return
         }
 
+        document.querySelector('.form-loading').style.display = 'block'
+        document.querySelector('.add-form').style.display = 'none'
+
         postComment(
             commentEl.value.replaceAll('<', '&lt;').replaceAll('>', '&gt;'),
             nameEl.value.replaceAll('<', '&lt;').replaceAll('>', '&gt;'),
         ).then((data) => {
             updateComments(data)
             renderComments()
+
+            document.querySelector('.form-loading').style.display = 'none'
+            document.querySelector('.add-form').style.display = 'flex'
+
             nameEl.value = ''
             commentEl.value = ''
         })
