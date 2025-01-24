@@ -6,7 +6,7 @@ const nameEl = document.querySelector('.add-form-name')
 const commentEl = document.querySelector('.add-form-text')
 const buttonEl = document.querySelector('.add-form-button')
 
-export const addCommetn = () => {
+export const addComment = () => {
     buttonEl.addEventListener('click', function (e) {
         nameEl.classList.remove('error')
         commentEl.classList.remove('error')
@@ -23,12 +23,19 @@ export const addCommetn = () => {
             return
         }
 
+        document.querySelector('.form-loading').style.display = 'block'
+        document.querySelector('.add-form').style.display = 'none'
+
         postComment(
             commentEl.value.replaceAll('<', '&lt;').replaceAll('>', '&gt;'),
             nameEl.value.replaceAll('<', '&lt;').replaceAll('>', '&gt;'),
         ).then((data) => {
             updateComments(data)
             renderComments()
+
+            document.querySelector('.form-loading').style.display = 'none'
+            document.querySelector('.add-form').style.display = 'flex'
+
             nameEl.value = ''
             commentEl.value = ''
         })
