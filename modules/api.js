@@ -29,7 +29,23 @@ export const postComment = (text, name) => {
             text: text,
             name: name,
         }),
-    }).then(() => {
-        return fetchComments()
     })
+        .then((res) => {
+            if (res.status === 201) {
+                return res.json()
+            } else {
+                if (res.status === 400) {
+                    throw new Error('Неверный запрос')
+                }
+                if (res.status === 500) {
+                    throw new Error('Сервер сломался')
+                }
+
+                throw new Error('Что-то пошло не так')
+            }
+        })
+
+        .then(() => {
+            return fetchComments()
+        })
 }
