@@ -29,15 +29,31 @@ export const addComment = () => {
         postComment(
             commentEl.value.replaceAll('<', '&lt;').replaceAll('>', '&gt;'),
             nameEl.value.replaceAll('<', '&lt;').replaceAll('>', '&gt;'),
-        ).then((data) => {
-            updateComments(data)
-            renderComments()
+        )
+            .then((data) => {
+                updateComments(data)
+                renderComments()
 
-            document.querySelector('.form-loading').style.display = 'none'
-            document.querySelector('.add-form').style.display = 'flex'
-
-            nameEl.value = ''
-            commentEl.value = ''
-        })
+                nameEl.value = ''
+                commentEl.value = ''
+            })
+            .catch((error) => {
+                if (error.message === 'Неверный запрос') {
+                    alert('Имя и комментарий должны быть не короче 3 символов')
+                }
+                if (error.message === 'Сервер сломался') {
+                    alert('Сервер сломался, попробуй позже')
+                }
+                if (error.message === 'Что-то пошло не так') {
+                    alert('Что-то пошло не так')
+                }
+                if (error.message === 'Failed to fetch') {
+                    alert('У пользователя пропал интернет')
+                }
+            })
+            .finally(() => {
+                document.querySelector('.form-loading').style.display = 'none'
+                document.querySelector('.add-form').style.display = 'flex'
+            })
     })
 }
