@@ -1,13 +1,20 @@
 import { fetchAndRenderComments } from '../index.js'
-import { login, setName, setToken } from './api.js'
-import { renderRegistration } from './renderRegistration.js'
+import { registration, setName, setToken } from './api.js'
+import { renderLogin } from './renderLogin.js'
 
-export const renderLogin = () => {
+export const renderRegistration = () => {
     const container = document.querySelector('.container')
 
     const loginHtml = `
     <section class="add-form">
-        <h1>Форма входа</h1>
+        <h1>Форма регистрации</h1>
+        <input 
+            type="text" 
+            class="add-form-name" 
+            placeholder="Введите имя" 
+            id="name" 
+            required
+        />
         <input 
             type="text" 
             class="add-form-name" 
@@ -24,10 +31,10 @@ export const renderLogin = () => {
         />
         <fieldset class="add-form-registry">
             <button class="add-form-button-main button-main" type="submit">
-                Войти
-            </button>
-            <u class="add-form-button-link registry">
                 Зарегистрироваться
+            </button>
+            <u class="add-form-button-link entry">
+                Войти
             </u>
         </fieldset>
     </section>
@@ -35,16 +42,17 @@ export const renderLogin = () => {
 
     container.innerHTML = loginHtml
 
-    document.querySelector('.registry').addEventListener('click', () => {
-        renderRegistration()
+    document.querySelector('.entry').addEventListener('click', () => {
+        renderLogin()
     })
 
+    const nameEl = document.querySelector('#name')
     const loginEl = document.querySelector('#login')
     const passwordEl = document.querySelector('#password')
     const submitButtonEl = document.querySelector('.button-main')
 
     submitButtonEl.addEventListener('click', () => {
-        login(loginEl.value, passwordEl.value)
+        registration(nameEl.value, loginEl.value, passwordEl.value)
             .then((res) => {
                 return res.json()
             })

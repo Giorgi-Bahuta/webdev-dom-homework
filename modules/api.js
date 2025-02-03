@@ -1,4 +1,5 @@
 import { formatCustomDate } from './date.js'
+import { renderComments } from './renderComments.js'
 
 const host = 'https://wedev-api.sky.pro/api/v2/Giorgi-Bahuta'
 const authHost = 'https://wedev-api.sky.pro/api/user'
