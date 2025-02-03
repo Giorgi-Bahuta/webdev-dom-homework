@@ -3,10 +3,9 @@ import { comments } from './comments.js'
 import { addComment } from './post.js'
 import { renderLogin } from './renderLogin.js'
 
-const container = document.querySelector('.container')
-const commentEl = document.querySelector('.add-form-text')
-
 export const renderComments = () => {
+    const container = document.querySelector('.container')
+
     const commentsHtml = comments
         .map((comment, index) => {
             return `
@@ -84,6 +83,7 @@ export const renderComments = () => {
 
         // Внутрь рендер функции добавим ответ на коммент. При нажатии на любой коммент, на него можно будет ответить
         const commentTexts = document.querySelectorAll('.comment-body')
+        const commentEl = document.querySelector('.add-form-text')
 
         for (const commentText of commentTexts) {
             commentText.addEventListener('click', function (e) {
